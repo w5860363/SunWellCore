@@ -78,7 +78,7 @@ enum WorldTimers
     WUPDATE_AUTOBROADCAST,
     WUPDATE_MAILBOXQUEUE,
     WUPDATE_PINGDB,
-	WUPDATE_5_SECS,
+    WUPDATE_5_SECS,
     WUPDATE_COUNT
 };
 
@@ -151,7 +151,7 @@ enum WorldBoolConfigs
     CONFIG_FREE_DUAL_SPEC, // pussywizard
     CONFIG_ENABLE_MMAPS, // pussywizard
     CONFIG_ENABLE_LOGIN_AFTER_DC, // pussywizard
-	CONFIG_DONT_CACHE_RANDOM_MOVEMENT_PATHS, // pussywizard
+    CONFIG_DONT_CACHE_RANDOM_MOVEMENT_PATHS, // pussywizard
     CONFIG_QUEST_IGNORE_AUTO_ACCEPT,
     CONFIG_QUEST_IGNORE_AUTO_COMPLETE,
     CONFIG_WARDEN_ENABLED,
@@ -211,7 +211,7 @@ enum WorldIntConfigs
     CONFIG_MAX_RECRUIT_A_FRIEND_BONUS_PLAYER_LEVEL,
     CONFIG_MAX_RECRUIT_A_FRIEND_BONUS_PLAYER_LEVEL_DIFFERENCE,
     CONFIG_INSTANCE_RESET_TIME_HOUR,
-	CONFIG_INSTANCE_RESET_TIME_RELATIVE_TIMESTAMP,
+    CONFIG_INSTANCE_RESET_TIME_RELATIVE_TIMESTAMP,
     CONFIG_INSTANCE_UNLOAD_DELAY,
     CONFIG_MAX_PRIMARY_TRADE_SKILL,
     CONFIG_MIN_PETITION_SIGNS,
@@ -283,9 +283,9 @@ enum WorldIntConfigs
     CONFIG_PLAYER_ALLOW_COMMANDS,
     CONFIG_NUMTHREADS,
     CONFIG_LOGDB_CLEARINTERVAL,
-	CONFIG_TELEPORT_TIMEOUT_NEAR, // pussywizard
-	CONFIG_TELEPORT_TIMEOUT_FAR, // pussywizard
-	CONFIG_MAX_ALLOWED_MMR_DROP, // pussywizard
+    CONFIG_TELEPORT_TIMEOUT_NEAR, // pussywizard
+    CONFIG_TELEPORT_TIMEOUT_FAR, // pussywizard
+    CONFIG_MAX_ALLOWED_MMR_DROP, // pussywizard
     CONFIG_CLIENTCACHE_VERSION,
     CONFIG_GUILD_EVENT_LOG_COUNT,
     CONFIG_GUILD_BANK_EVENT_LOG_COUNT,
@@ -747,6 +747,8 @@ class World
         void ForceGameEventUpdate();
 
         void UpdateRealmCharCount(uint32 accid);
+        
+        LocaleConstant GetAvailableDbcLocale(LocaleConstant locale) const { if (m_availableDbcLocaleMask & (1 << locale)) return locale; else return m_defaultDbcLocale; }
 
         // used World DB version
         void LoadDBVersion();
@@ -818,6 +820,7 @@ class World
         uint32 m_playerLimit;
         AccountTypes m_allowedSecurityLevel;
         LocaleConstant m_defaultDbcLocale;                     // from config for one from loaded DBC locales
+        uint32 m_availableDbcLocaleMask;
         void DetectDBCLang();
         bool m_allowMovement;
         std::string m_motd;
